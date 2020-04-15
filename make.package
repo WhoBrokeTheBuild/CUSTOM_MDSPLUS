@@ -1,5 +1,5 @@
 #!/bin/bash
-# WRPG : White Rabbit Pulse Generator
+# MDSPLUS : shot data handling system
 DC=$(date +%y%m%d%H%M)
 SEQ=99
 PKG=mdsplus

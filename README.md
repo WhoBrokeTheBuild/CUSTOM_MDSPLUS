@@ -1,4 +1,4 @@
-CUSTOM_MDSPLUS
+# CUSTOM_MDSPLUS
 
 Skeleton "MDSPLUS" distribution. The content isn't important, the concept is:
 
@@ -27,3 +27,11 @@ then the package image is mounted as the readonly part of the image, while a dir
 /mnt/local/package/package_name is created as the writable part of the image.
 overlayfs combines the two as a unified image at /usr/local/package-name
 This doesn't really break the "no writes to the SD" image, provided it's only one-time init data. 
+
+
+This example will
+1. Gather data files into output data structure opkg/packagename
+
+2. Create a sample init file on the fly. The init file copies data from a user directory on the SD card to the overlay.
+
+
