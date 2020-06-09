@@ -6,26 +6,46 @@ PKG=mdsplus
 PACKAGES=../../PACKAGES.OPT
 
 
+# Download packages
 
-rm -Rf opkg/*
+wget https://www.mdsplus.org/dist/raspberrypi/alpha/DEBS/armhf/mdsplus-alpha-devel_7.107.1_armhf.deb
+wget https://www.mdsplus.org/dist/raspberrypi/alpha/DEBS/armhf/mdsplus-alpha-devel_bin_7.107.1_armhf.deb
+wget https://www.mdsplus.org/dist/raspberrypi/alpha/DEBS/armhf/mdsplus-alpha-htsdevices_7.107.1_armhf.deb
+wget https://www.mdsplus.org/dist/raspberrypi/alpha/DEBS/armhf/mdsplus-alpha-kernel_7.107.1_armhf.deb
+wget https://www.mdsplus.org/dist/raspberrypi/alpha/DEBS/armhf/mdsplus-alpha-kernel_bin_7.107.1_armhf.deb
+wget https://www.mdsplus.org/dist/raspberrypi/alpha/DEBS/armhf/mdsplus-alpha-python_7.107.1_armhf.deb
+wget https://www.mdsplus.org/dist/raspberrypi/alpha/DEBS/armhf/mdsplus-alpha_7.107.1_armhf.deb
+
+# Unzip package contents
+
+dpkg -x mdsplus-alpha-devel_7.107.1_armhf.deb ./
+dpkg -x mdsplus-alpha-devel_bin_7.107.1_armhf.deb ./
+dpkg -x mdsplus-alpha-htsdevices_7.107.1_armhf.deb ./
+dpkg -x mdsplus-alpha-kernel_7.107.1_armhf.deb ./
+dpkg -x mdsplus-alpha-kernel_bin_7.107.1_armhf.deb ./
+dpkg -x mdsplus-alpha-python_7.107.1_armhf.deb ./
+dpkg -x mdsplus-alpha_7.107.1_armhf.deb ./
+
+
+# rm -Rf opkg/*
 mkdir -p release opkg/mdsplus/etc opkg/mdsplus/pydevices
-cp -a ~/PROJECTS/MDSplus.sean/mdsplus/pydevices/acq400Devices \
-	opkg/mdsplus/pydevices
-cp -a ~/PROJECTS/MDSplus.sean/mdsplus/python opkg/mdsplus/
+# cp -a ~/PROJECTS/MDSplus.sean/mdsplus/pydevices/acq400Devices \
+# 	opkg/mdsplus/pydevices
+# cp -a ~/PROJECTS/MDSplus.sean/mdsplus/python opkg/mdsplus/
 
-cat - > opkg/mdsplus/mdsplus.init <<EOF 
-#!/bin/sh
-echo +++ mdsplus.init
-if [ -e /mnt/local/mdsplus/etc ]; then
-	cp /mnt/local/mdsplus/etc/* /usr/local/mdsplus/etc
-	ls -l /usr/local/mdsplus/etc/
-fi
-EOF
-chmod a+rx opkg/mdsplus/mdsplus.init
+# cat - > opkg/mdsplus/mdsplus.init <<EOF 
+# #!/bin/sh
+# echo +++ mdsplus.init
+# if [ -e /mnt/local/mdsplus/etc ]; then
+# 	cp /mnt/local/mdsplus/etc/* /usr/local/mdsplus/etc
+# 	ls -l /usr/local/mdsplus/etc/
+# fi
+# EOF
+# chmod a+rx opkg/mdsplus/mdsplus.init
 
 IMG=${SEQ}-${PKG}-${DC}.ovl
-mksquashfs opkg/mdsplus/* release/$IMG
+mksquashfs usr/local/mdsplus/* release/$IMG
 ls -l release/$IMG
-rm -f ${PACKAGES}/${SEQ}-${PKG}*
-cp release/$IMG ${PACKAGES}
+# rm -f ${PACKAGES}/${SEQ}-${PKG}*
+# cp release/$IMG ${PACKAGES}
 
