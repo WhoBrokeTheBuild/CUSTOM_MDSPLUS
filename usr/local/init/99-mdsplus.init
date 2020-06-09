@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo +++ 99-mdsplus.init
+
+# Do we want this?
+useradd mdsplus
+
+# Do we want this?
+ln -s /etc/profile.d/mdsplus.sh /usr/local/mdsplus/setup.sh
+
+# TODO: Improve
+python /usr/local/mdsplus/python/MDSplus/setup.py install
