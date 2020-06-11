@@ -6,7 +6,7 @@ PKG=mdsplus
 #PACKAGES=../../PACKAGES.OPT
 PACKAGES=packages.opt
 
-mkdir $PACKAGES
+mkdir -p $PACKAGES
 
 MDS_VERSION=7.107.1
 MDS_PACKAGES=(
@@ -45,8 +45,7 @@ cp -a usr opkg
 chmod a+rx opkg/usr/local/init/99-mdsplus.init
 
 IMG=${SEQ}-${PKG}-${DC}.ovl
-mksquashfs usr release/$IMG
+mksquashfs opkg/* release/$IMG
 ls -l release/$IMG
 rm -f ${PACKAGES}/${SEQ}-${PKG}*
 cp release/$IMG ${PACKAGES}
-
