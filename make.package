@@ -45,7 +45,7 @@ cp -a usr opkg
 chmod a+rx opkg/usr/local/init/99-mdsplus.init
 
 IMG=${SEQ}-${PKG}-${DC}.ovl
-mksquashfs opkg/* release/$IMG
+mksquashfs opkg release/$IMG
 ls -l release/$IMG
 rm -f ${PACKAGES}/${SEQ}-${PKG}*
 cp release/$IMG ${PACKAGES}
