@@ -30,6 +30,12 @@ do
 	dpkg -x ${pkg}.deb opkg/
 done
 
+# Get libreadline6
+
+wget http://turul.canonical.com/pool/main/r/readline6/libreadline6_6.3-8ubuntu2_armhf.deb -O libreadline6.deb
+dpkg -x libreadline6.deb /tmp/libreadline6
+cp /tmp/libreadline6/lib/arm-linux-gnueabihf/* opkg/usr/local/mdsplus/lib/
+
 # mkdir -p release opkg/mdsplus/etc opkg/mdsplus/pydevices
 # cp -a ~/PROJECTS/MDSplus.sean/mdsplus/pydevices/acq400Devices \
 # 	opkg/mdsplus/pydevices
