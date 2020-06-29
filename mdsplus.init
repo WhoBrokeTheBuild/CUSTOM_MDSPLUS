@@ -1,0 +1,27 @@
+#!/bin/sh
+
+echo +++ mdsplus.init
+
+# Do we want this?
+# useradd mdsplus
+mkdir -p /home/mdsplus/
+cp /usr/local/mdsplus/.bash_profile /home/mdsplus/
+
+# Do we want this?
+ln -s /usr/local/mdsplus/setup.sh /etc/profile.d/mdsplus.sh
+ln -s /usr/lib/libreadline.so.8.0 /usr/local/lib/libreadline.so.6
+
+# TODO: Improve
+# python /usr/local/mdsplus/python/MDSplus/setup.py install
+#mkdir -p /root/.local/lib/python3.8/site-packages
+#touch /root/.local/lib/python3.8/site-packages/mdsplus.pth
+#mount -o ro,bind /usr/local/mdsplus/mdsplus.pth /root/.local/lib/python3.8/site-packages/mdsplus.pth
+
+#mkdir -p /home/mdsplus/.local/lib/python3.8/site-packages
+#touch /home/mdsplus/.local/lib/python3.8/site-packages/mdsplus.pth
+#mount -o ro,bind /usr/local/mdsplus/mdsplus.pth /home/mdsplus/.local/lib/python3.8/site-packages/mdsplus.pth
+
+# Mounting an overlat extension, so that we can create the mdsplus.pth file in it:
+/sbin/mount-overlay-extension /usr/lib/python3.8/site-packages/
+echo "/usr/local/mdsplus/python" > /usr/lib/python3.8/site-packages/mdsplus.pth
+

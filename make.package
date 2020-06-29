@@ -3,6 +3,7 @@
 DC=$(date +%y%m%d%H%M)
 SEQ=99
 PKG=mdsplus
+#PVERSION=3.6
 #PACKAGES=../../PACKAGES.OPT
 PACKAGES=packages.opt
 
@@ -27,25 +28,41 @@ mkdir -p opkg release
 for pkg in ${MDS_PACKAGES[@]}
 do
 	wget https://www.mdsplus.org/dist/raspberrypi/alpha/DEBS/armhf/${pkg}_${MDS_VERSION}_armhf.deb -O ${pkg}.deb
-	dpkg -x ${pkg}.deb opkg/
+	dpkg -x ${pkg}.deb /tmp/mdsplus
+    cp -R /tmp/mdsplus/usr/local/mdsplus/* opkg/
 done
 
 # Get libreadline6
 
-wget http://turul.canonical.com/pool/main/r/readline6/libreadline6_6.3-8ubuntu2_armhf.deb -O libreadline6.deb
-dpkg -x libreadline6.deb /tmp/libreadline6
-cp /tmp/libreadline6/lib/arm-linux-gnueabihf/* opkg/usr/local/mdsplus/lib/
+# wget http://turul.canonical.com/pool/main/r/readline6/libreadline6_6.3-8ubuntu2_armhf.deb -O libreadline6.deb
+# dpkg -x libreadline6.deb /tmp/libreadline6
+# cp /tmp/libreadline6/lib/arm-linux-gnueabihf/* opkg/lib/
+
+# Get libtinfo5
+
+# wget http://turul.canonical.com/pool/main/n/ncurses/libtinfo5_5.9+20140118-1ubuntu1_armhf.deb -O libtinfo5.deb
+# dpkg -x libtinfo5.deb /tmp/libtinfo5
+# cp /tmp/libtinfo5/lib/arm-linux-gnueabihf/* opkg/lib/
 
 # mkdir -p release opkg/mdsplus/etc opkg/mdsplus/pydevices
 # cp -a ~/PROJECTS/MDSplus.sean/mdsplus/pydevices/acq400Devices \
 # 	opkg/mdsplus/pydevices
 # cp -a ~/PROJECTS/MDSplus.sean/mdsplus/python opkg/mdsplus/
 
-cp -a usr opkg
-chmod a+rx opkg/usr/local/init/99-mdsplus.init
+cp -a mdsplus.init opkg
+# I'm adding a .bash_profile and .bashrc to the mdsplus user
+cp -a .bash_profile opkg
+# cp -a .bashrc opkg
+
+# I'm testing my version of setup.sh, I removed the lines that wants copy files to use /dev/
+cp -a setup.sh opkg
+# cp -a /usr/local/lib/python${PVERSION}/dist-packages/mdsplus.pth opkg
+
+chmod a+rx opkg/mdsplus.init
+chown -R mdsplus:mdsplus opkg/*
 
 IMG=${SEQ}-${PKG}-${DC}.ovl
-mksquashfs opkg release/$IMG
+mksquashfs opkg/* release/$IMG
 ls -l release/$IMG
 rm -f ${PACKAGES}/${SEQ}-${PKG}*
 cp release/$IMG ${PACKAGES}
