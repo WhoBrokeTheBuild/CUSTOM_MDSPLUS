@@ -3,11 +3,6 @@
 echo +++ mdsplus.init
 
 # Do we want this?
-# useradd mdsplus
-mkdir -p /home/mdsplus/
-cp /usr/local/mdsplus/.bash_profile /home/mdsplus/
-
-# Do we want this?
 ln -s /usr/local/mdsplus/setup.sh /etc/profile.d/mdsplus.sh
 ln -s /usr/lib/libreadline.so.8.0 /usr/local/lib/libreadline.so.6
 
@@ -25,3 +20,14 @@ ln -s /usr/lib/libreadline.so.8.0 /usr/local/lib/libreadline.so.6
 /sbin/mount-overlay-extension /usr/lib/python3.8/site-packages/
 echo "/usr/local/mdsplus/python" > /usr/lib/python3.8/site-packages/mdsplus.pth
 
+# MDSplus user
+# useradd mdsplus
+mkdir -p /home/mdsplus/
+chown -R mdsplus /home/mdsplus/
+# chown -R mdsplus /usr/local/mdsplus/
+
+# This is so the MDSplus' setup.sh for mdsplus user works:
+chmod a+rw /dev/null
+
+# Removing a line of the epics.sh setup file that fails with sourced:
+sed -i '1 s/^/#/' /mnt/local/sysconfig/epics.sh

@@ -50,19 +50,21 @@ done
 # cp -a ~/PROJECTS/MDSplus.sean/mdsplus/python opkg/mdsplus/
 
 cp -a mdsplus.init opkg
-# I'm adding a .bash_profile and .bashrc to the mdsplus user
-cp -a .bash_profile opkg
-# cp -a .bashrc opkg
 
-# I'm testing my version of setup.sh, I removed the lines that wants copy files to use /dev/
-cp -a setup.sh opkg
+# My version of mdstcl: LD_LIBRARY_PATH is defined explicitly
+cp -a mdstcl opkg/bin/
+
+# I'm testing my version of setup.sh, I removed the lines that PyLib and uses /dev/
+# cp -a setup.sh opkg
 # cp -a /usr/local/lib/python${PVERSION}/dist-packages/mdsplus.pth opkg
 
 chmod a+rx opkg/mdsplus.init
-chown -R mdsplus:mdsplus opkg/*
+# chown -R mdsplus:mdsplus opkg/*
 
 IMG=${SEQ}-${PKG}-${DC}.ovl
-mksquashfs opkg/* release/$IMG
+#mksquashfs opkg/* release/$IMG
+mksquashfs opkg/* release/$IMG -force-uid mdsplus
+
 ls -l release/$IMG
 rm -f ${PACKAGES}/${SEQ}-${PKG}*
 cp release/$IMG ${PACKAGES}

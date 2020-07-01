@@ -1,0 +1,1 @@
+LD_LIBRARY_PATH=/usr/local/mdsplus/lib:/usr/local/lib:/usr/lib exec mdsdcl -prep "set command tcl_commands -history=.tcl" "$@"
