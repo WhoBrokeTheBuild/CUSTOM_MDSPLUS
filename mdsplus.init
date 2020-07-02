@@ -24,7 +24,6 @@ echo "/usr/local/mdsplus/python" > /usr/lib/python3.8/site-packages/mdsplus.pth
 # useradd mdsplus
 mkdir -p /home/mdsplus/
 chown -R mdsplus /home/mdsplus/
-# chown -R mdsplus /usr/local/mdsplus/
 
 # This is so the MDSplus' setup.sh for mdsplus user works:
 chmod a+rw /dev/null
