@@ -58,13 +58,15 @@ cp -a /usr/local/mdsplus/pydevices/HtsDevices/acq2106_WRTD.py opkg/pydevices/Hts
 mkdir opkg/pydevices/acq400Devices/
 cp -a /usr/local/mdsplus/pydevices/acq400Devices/acq400_base.py opkg/pydevices/acq400Devices/
 cp -a /usr/local/mdsplus/pydevices/acq400Devices/acq2106_tr.py opkg/pydevices/acq400Devices/
+cp -a acq400_hapi opkg
+cp -a matplotlib opkg
 
 # I'm testing my version of setup.sh, I removed the lines that PyLib and uses /dev/
 # cp -a setup.sh opkg
 # cp -a /usr/local/lib/python${PVERSION}/dist-packages/mdsplus.pth opkg
 
 chmod a+rx opkg/mdsplus.init
-chown -R 1042 opkg/*
+chown -R 1042:root opkg/*
 
 IMG=${SEQ}-${PKG}-${DC}.ovl
 mksquashfs opkg/* release/$IMG
