@@ -54,12 +54,13 @@ cp -a mdsplus.init opkg
 # My version of mdstcl: LD_LIBRARY_PATH is defined explicitly
 cp -a mdstcl opkg/bin/
 
-cp -a /usr/local/mdsplus/pydevices/HtsDevices/acq2106_WRTD.py opkg/pydevices/HtsDevices/
-mkdir opkg/pydevices/acq400Devices/
-cp -a /usr/local/mdsplus/pydevices/acq400Devices/acq400_base.py opkg/pydevices/acq400Devices/
-cp -a /usr/local/mdsplus/pydevices/acq400Devices/acq2106_tr.py opkg/pydevices/acq400Devices/
-cp -a acq400_hapi opkg
-cp -a matplotlib opkg
+cp -a /home/fsantoro/mdsplus/pydevices/HtsDevices/acq2106_WRTD.py opkg/pydevices/HtsDevices/
+cp -a /home/fsantoro/mdsplus/pydevices/HtsDevices/acq2106_WRPG.py opkg/pydevices/HtsDevices/
+cp -a /home/fsantoro/mdsplus/pydevices/acq400Devices/* opkg/pydevices/HtsDevices/
+
+# Python packages
+mkdir -p opkg/usr/lib/python3/dist-packages
+cp -a usr/lib/python3/dist-packages/* opkg/usr/lib/python3/dist-packages/
 
 # I'm testing my version of setup.sh, I removed the lines that PyLib and uses /dev/
 # cp -a setup.sh opkg

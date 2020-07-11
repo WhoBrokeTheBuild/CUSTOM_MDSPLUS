@@ -19,8 +19,9 @@ ln -s /usr/lib/libreadline.so.8.0 /usr/local/lib/libreadline.so.6
 # Mounting an overlat extension, so that we can create the mdsplus.pth file in it:
 /sbin/mount-overlay-extension /usr/lib/python3.8/site-packages/
 echo "/usr/local/mdsplus/python" > /usr/lib/python3.8/site-packages/mdsplus.pth
-cp -r /usr/local/mdsplus/acq400_hapi /usr/lib/python3.8/site-packages/
-cp -r /usr/local/mdsplus/matplotlib /usr/lib/python3.8/site-packages/
+
+#Python Packages
+cp -r /usr/local/mdsplus/usr/lib/python3/dist-packages/* /usr/lib/python3.8/site-packages/
 
 # MDSplus user
 # useradd mdsplus
